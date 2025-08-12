@@ -2,9 +2,10 @@ version: '3.8'
 
 services:
   webapp:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
+    image: dwachholderesa/ochsner-poc:latest
     ports:
       - "8080:80"
     environment:

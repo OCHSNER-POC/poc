@@ -4,6 +4,9 @@ param(
     [Parameter(Mandatory=$true)]
     [string]$DockerHubUsername,
     
+    [Parameter(Mandatory=$true)]
+    [string]$ImageName,
+    
     [Parameter(Mandatory=$false)]
     [string]$Tag = "latest",
     
@@ -14,8 +17,8 @@ param(
 Write-Host "Building Docker image..." -ForegroundColor Green
 
 # Build the image
-$imageName = "$DockerHubUsername/myapp"
-$fullTag = "$imageName`:$Tag"
+$fullImageName = "$DockerHubUsername/$ImageName"
+$fullTag = "$fullImageName`:$Tag"
 
 Write-Host "Building $fullTag..." -ForegroundColor Yellow
 docker build -t $fullTag .

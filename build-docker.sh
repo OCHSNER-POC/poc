@@ -1,16 +1,18 @@
 #!/bin/bash
 
 # Check if required parameters are provided
-if [ $# -lt 1 ]; then
-    echo "Usage: $0 <dockerhub-username> [tag] [--push]"
+if [ $# -lt 2 ]; then
+    echo "Usage: $0 <dockerhub-username> <image-name> [tag] [--push]"
     echo "  dockerhub-username: Your Docker Hub username"
+    echo "  image-name: Name for your Docker image"
     echo "  tag: Image tag (default: latest)"
     echo "  --push: Push image to Docker Hub after building"
     exit 1
 fi
 
 DOCKERHUB_USERNAME=$1
-TAG=${2:-"latest"}
+IMAGE_NAME=$2
+TAG=${3:-"latest"}
 PUSH=false
 
 # Check if --push flag is provided
@@ -21,8 +23,8 @@ fi
 echo "Building Docker image..."
 
 # Build the image
-IMAGE_NAME="$DOCKERHUB_USERNAME/myapp"
-FULL_TAG="$IMAGE_NAME:$TAG"
+FULL_IMAGE_NAME="$DOCKERHUB_USERNAME/$IMAGE_NAME"
+FULL_TAG="$FULL_IMAGE_NAME:$TAG"
 
 echo "Building $FULL_TAG..."
 docker build -t "$FULL_TAG" .
